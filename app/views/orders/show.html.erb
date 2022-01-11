@@ -5,7 +5,7 @@
   </header>
 
   <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
+    <h4>Thank you for your order! Here are the details of your order. </h4>
   </div>
 
     <div class="panel panel-default items">
@@ -22,8 +22,8 @@
         <% @order.line_items.each do |item| %>
           <th colspan="2"><%= item.product.name %></th>
           <th><%= humanized_money_with_symbol item.product.price %></th>
-          <th><%= item.product.quantity%></th>
-          <th><%= humanized_money_with_symbol item.product.price %></th>
+          <th><%= item.quantity%></th>
+          <th><%= humanized_money_with_symbol item.total_price_cents %></th>
           </tbody>
         <% end %>
       <tfoot>
@@ -38,24 +38,6 @@
       </tfoot>
     </table>
   </div>
-
-  <div class="row">
-  <div class="col-xs-12">
-    <%= form_tag orders_path do %>
-      <script
-        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-        data-amount="<%= humanized_money_with_symbol cart_subtotal_cents %>"
-        data-name="Jungle"
-        data-description="Khurram Virani's Jungle Order"
-        data-locale="auto"
-        data-email="kvirani@gmail.com"
-        data-currency="cad">
-      </script>
-    <% end %>
-  </div>
-</div>
-
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
